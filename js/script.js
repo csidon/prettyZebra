@@ -1,5 +1,34 @@
 console.log('js'); //viewed in console of the browser
 console.log(key)
+var script ='<script src="https://maps.googleapis.com/maps/api/js?key='+ key +'&callback=initMap&libraries=places&v=weekly" async></script>'
+
+console.log(script)
+//Javascript functionality to be triggered after the page elements (html and CSS) have fully loaded
+$(document).ready(function(){
+  $('body').append(script); //appending script var to body of index.html for a safe use of the key
+  $("#register").hide();
+  $("#book").hide();
+  $("#contact").hide();
+
+  $("#home-link").click(function(){
+    $("#home").show();
+    $("#register", "#book", "#contact").hide();
+  });
+
+  $("#register-link").click(function(){
+    $("#register").show();
+    $("#home", "#book", "#contact").hide();
+  });
+  $("#book-link").click(function(){
+    $("#book").show();
+    $("#register", "#home", "#contact").hide();
+  });
+  $("#contact-link").click(function(){
+    $("#contact").show();
+    $("#register", "#book", "#home").hide();
+  });
+});
+
 // js objects written in key:value pair
 //similar to c++ array of structure
 var login = [{
@@ -26,14 +55,14 @@ loginBtn.addEventListener('click', function() {
 });
 
 
-var homeIcon = document.getElementById('home-icon');
-
-
-
-homeIcon.addEventListener('click', function() {
-  nav();
-
-});
+// var homeIcon = document.getElementById('home-icon');
+//
+//
+//
+// homeIcon.addEventListener('click', function() {
+//   nav();
+//
+// });
 
 function nav() {
   if (homeIcon.style.display == 'none') {
@@ -42,11 +71,11 @@ function nav() {
     document.getElementById('taxi-nav-container').style.display = 'none';
   };
 }
-var closeBtn = document.getElementById('close-btn');
-closeBtn.addEventListener('click', function() {
-  console.log('close btn clicked');
-  document.getElementById('taxi-nav-container').style.display = 'none';
-});
+// var closeBtn = document.getElementById('close-btn');
+// closeBtn.addEventListener('click', function() {
+//   console.log('close btn clicked');
+//   document.getElementById('taxi-nav-container').style.display = 'none';
+// });
 
 
 var submitBtn = document.getElementById('submit');
@@ -94,7 +123,7 @@ function initMap() {
       lat: -41.267360,
       lng: 174.849697
     },
-    zoom: 13,
+    zoom: 11,
   });
 
   new AutocompleteDirectionsHandler(map);
@@ -108,7 +137,7 @@ class AutocompleteDirectionsHandler {
   directionsService;
   directionsRenderer;
   // distanceService;
-  geocoder;
+  // geocoder;
   constructor(map) {
     this.map = map;
     this.originPlaceId = "";
@@ -120,8 +149,8 @@ class AutocompleteDirectionsHandler {
     //================================================
     // initialize services for distance calculation
 
-    this.geocoder = new google.maps.Geocoder();
-    var service = new google.maps.DistanceMatrixService();
+    // this.geocoder = new google.maps.Geocoder();
+    // var service = new google.maps.DistanceMatrixService();
     const originInput = document.getElementById("origin-input");
     const destinationInput = document.getElementById("destination-input");
     // const modeSelector = document.getElementById("mode-selector");
@@ -134,23 +163,13 @@ class AutocompleteDirectionsHandler {
       destinationInput
     );
 
+    // Specify just the place data fields that you need.
+    destinationAutocomplete.setFields(["place_id"]);
+
     // Set initial restrict to the greater list of countries.
     originAutocomplete.setComponentRestrictions({'country': ['nz']});
     destinationAutocomplete.setComponentRestrictions({'country': ['nz']});
-    // // Build request for dist calcultation
-    // distanceService.getDistanceMatrix({
-    //   origins: [origin1, origin2],
-    //   destinations: [destinationA, destinationB],
-    //   travelMode: 'DRIVING',
-    //   transitOptions: TransitOptions,
-    //   drivingOptions: DrivingOptions,
-    //   unitSystem: UnitSystem,
-    //   avoidHighways: Boolean,
-    //   avoidTolls: Boolean,
-    // }, callback);
 
-    // Specify just the place data fields that you need.
-    destinationAutocomplete.setFields(["place_id"]);
     // this.setupClickListener(
     //   "changemode-walking",
     //   google.maps.TravelMode.WALKING
@@ -218,24 +237,17 @@ class AutocompleteDirectionsHandler {
         if (status === "OK")
         {
           me.directionsRenderer.setDirections(response);
-          // var origins = this.originPlaceId;
-          // var destinations = this.destinationPlaceId;
-          // window.alert("The origin collected is " + origins + "and destination is " + destinations);
-          // window.alert("OriginsLength is " + origins.length);
-
-          // for (var i = 0; i < origins.length; i++)
-          // {
-          //   var results = response.rows[i].elements;
-          //   for (var j = 0; i < results.length; j++)
-          //   {
-          //     var element = results[j];
-          //     var distance = element.distance.text;
-          //     var duration = element.duration.text;
-          //     var from = origins[i];
-          //     var to = destinations[j]
-          //     window.alert("The calculated distance is " + distance + "and duration is " + duration);
-          //   }
-          // }
+          console.log(response.routes[0]);
+          console.log(response.routes[0].legs[0].start_address, response.routes[0].legs[0].end_address);
+          console.log(response.routes[0].legs[0].duration, response.routes[0].legs[0].duration_in_traffic, response.routes[0].legs[0].distance);
+          var result = document.getElementById('result');
+          result.innerHTML = '<p style="background-color:Tomato;"><h4 class="my-3">You are booking your ride from:<br></h4><b>Pickup:</b><br>'+ response.routes[0].legs[0].start_address+'<br><br>'+
+                              '<b>Dropoff: </b><br>' +response.routes[0].legs[0].end_address+'<br><br>'+
+                              '<b>Distance:</b><br>'+response.routes[0].legs[0].distance.text+'<br><br>'+
+                              '<b>Estimated duration: </b><br>'+response.routes[0].legs[0].duration.text+'<br><br>'+
+                              '<b>Trip Cost:</b><br>$' + parseFloat(response.routes[0].legs[0].distance.text) * 2.50 +'<br><br>'+
+                              '<button class="btn btn-warning display-4 col-12 py-3" type="button" name="button">Book now for NZ$'+
+                              parseFloat(response.routes[0].legs[0].distance.text) * 2.50 +'</button></p>';
         }
         else
         {
@@ -244,33 +256,6 @@ class AutocompleteDirectionsHandler {
       }
     );
   }
-  // Build request for dist calculation
-  serice.getDistanceMatrix({
-    origins: {placeId: this.originPlaceId},
-    destinations: {placeId: this.destinationPlaceId},
-    travelMode: 'DRIVING',
-    transitOptions: TransitOptions,
-    drivingOptions: DrivingOptions,
-    unitSystem: UnitSystem,
-    avoidHighways: Boolean,
-    avoidTolls: Boolean,
-  }, callback);
-
-  function callback(response, status) {
-    if (status !== google.maps.DistanceMatrixStatus.OK) {
-				alert('Error was: ' + status);
-			} else {
-				var origins = response.originAddresses;
-				var destinations = response.destinationAddresses;
-				var distance = 0;
-
-				var outputDiv = document.getElementById('outputDiv');
-				outputDiv.innerHTML = '';
-      }
-
-    }
-
-
 }
 
 

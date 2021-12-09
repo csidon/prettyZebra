@@ -20,31 +20,51 @@
   <link rel="stylesheet" href="css/style.css">
   <title>Learning Javascript</title>
 </head>
+<header>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #ffc107;">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-4" href="#"><img src="img\zebra-logo.png" alt="" width="30" height="24"> Zebra Taxi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="#">Book</a>
+          <a class="nav-link" href="#">Pay</a>
+          <a class="nav-link" href="#">Contact</a>
+        </div>
+      </div>
+      <form class="d-flex">
+        <button id="login-btn" class="btn btn-outline-light login-btn me-5" type="button">Login</button>
+      </form>
+
+    </div>
+  </nav>
+</header>
 
 <body>
   <div class="container">
-
-    <header>
-      <div class="row py-4 px-3 clearfix ">
-        <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pl-2">
-          <i id="home-icon" class="fas fa-home text-dark home-icon "></i>
-        </div>
-
-        <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-          <img class="logo" src="img\taxi_logo.png" alt="Taxi logo">
-        </div>
-
-        <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-          <button id="login-btn" class="btn btn-lg btn-warning text-light login-btn " type="button" name="button">Login</button>
-        </div>
-
+    <!-- <div class="row py-4 px-3 clearfix ">
+      <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pl-2">
+        <i id="home-icon" class="fas fa-home text-dark home-icon "></i>
       </div>
 
-    </header>
-    <nav>
-      <div class="">
-        <img class="banner" src="img\taxi_header.png" alt="Banner image">
+      <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+        <img class="logo" src="img\taxi_logo.png" alt="Taxi logo">
       </div>
+
+      <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+        <button id="login-btn" class="btn btn-lg btn-warning text-light login-btn " type="button" name="button">Login</button>
+      </div>
+
+    </div> -->
+
+
+    <!-- <nav>
+
 
       <ul id="taxi-nav-container" class="taxi-nav-container bg-dark text-info active clearfix ">
         <div class="text-light">
@@ -55,46 +75,58 @@
         <li class="taxi-nav-list pay"> <a class="taxi-nav-link" href="#"> Pay </a> </li>
         <li class="taxi-nav-list contact"> <a class="taxi-nav-link" href="#"> Contact </a> </li>
       </ul>
-    </nav>
+    </nav> -->
+
+    <div class="mt-5">
+      <img class="banner" src="img\taxi_header.png" alt="Banner image">
+    </div>
     <!-- login form -->
-    <form id="login-form" class="text-dark my-5 width" action="index.html" method="post">
+    <form id="login-form" class="text-dark my-5 border border-warning p-5 col-md-7 col-lg-5" action="index.html" method="post">
       <label class="form-control" for="username">Enter the username: </label>
-      <input type="text" name="username" class="form-control" id="username" value="">
+      <input type="text" name="username" class="form-control my-2" id="username" value="">
 
       <label class="form-control mt-4" for="password">Enter the password: </label>
-      <input type="password" name="password" class="form-control" id="password" value="">
+      <input type="password" name="password" class="form-control my-2" id="password" value="">
 
       <button id="submit" type="button" class="btn btn-dark text-warning btn-xxl mt-4" name="button">Submit</button>
     </form>
+
+
     <main>
       <!--Input Section -->
       <section class="row clearfix">
-        <form id="input-form" class="text-dark my-5 width">
-          <h3>Book your ride!</h3>
+        <div class="col col-md-8 col-lg-7">
+          <form id="input-form" class="text-dark my-5 border border-warning p-5">
+            <h3 class="mb-3">Book your ride!</h3>
 
-          <input type="text" name="origin-input" class="form-control" id="origin-input" placeholder="Enter an origin location" value="">
+            <input type="text" name="origin-input" class="form-control" id="origin-input" placeholder="Enter an origin location" value="">
 
-          <!-- <label class="form-control mt-4" for="destination-input">Destination: </label> -->
-          <input type="text" name="destination-input" class="form-control my-3" id="destination-input" placeholder="Enter a destination location" value="">
+            <!-- <label class="form-control mt-4" for="destination-input">Destination: </label> -->
+            <input type="text" name="destination-input" class="form-control my-3" id="destination-input" placeholder="Enter a destination location" value="">
 
-          <!-- <div style="display: none"> -->
-          <!-- <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location" />
+            <!-- <div style="display: none"> -->
+            <!-- <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location" />
 
           <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location" /> -->
-          <!-- <div class="row">
+            <!-- <div class="row">
           <div id="mode-selector" class="controls"> -->
-          <!-- <input type="radio" name="type" id="changemode-walking" checked="checked" />
+            <!-- <input type="radio" name="type" id="changemode-walking" checked="checked" />
             <label for="changemode-walking">Walking</label>
 
             <input type="radio" name="type" id="changemode-transit" />
             <label for="changemode-transit">Transit</label> -->
 
-          <!-- <input type="radio" name="type" id="changemode-driving" checked="checked" />
+            <!-- <input type="radio" name="type" id="changemode-driving" checked="checked" />
             <label for="changemode-driving">Driving</label>
           </div>
         </div> -->
 
-          <div id="map"></div>
+            <div id="map"></div>
+        </div>
+        <div class="col col-md-4 col-lg-5 my-3">
+
+          <div class="p-5" id="result"></div>
+        </div>
         </form>
       </section>
 
@@ -107,7 +139,7 @@
           <h4>Calculation</h4>
 
           <h3 style="flex-grow: 0">Request</h3>
-          <pre style="flex-grow: 1" id="request"></pre>
+          <pre style="flex-grow: 1" id="result"></pre>
           <h3 style="flex-grow: 0">Response</h3>
           <pre style="flex-grow: 1" id="response"></pre>
         </div>
@@ -121,12 +153,16 @@
   <!-- ==================
 scripts
 ==================== -->
+  <!-- jQuery key-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- Bootstrap bundle-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <!-- map key-->
   <script src="js/mapKey.js">
   </script>
 
   <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlVODe_0tA2AmDJo6BXgyybuFBi-Vhwro&callback=initMap&libraries=places&v=weekly" async></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlVODe_0tA2AmDJo6BXgyybuFBi-Vhwro&callback=initMap&libraries=places&v=weekly" async></script> -->
   <!-- Loading the Places Service library to allow Place Autocomplete -->
   <!-- <script async
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlVODe_0tA2AmDJo6BXgyybuFBi-Vhwro&libraries=places&callback=initMap"> -->
